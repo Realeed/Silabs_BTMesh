@@ -103,6 +103,7 @@ void sl_btmesh_on_event(sl_btmesh_msg_t *evt)
                             evt->data.evt_generic_server_client_request.delay_ms,
                             evt->data.evt_generic_server_client_request.flags);
           printf("Model: Light Lightness\n");
+          printf("Lightness: %u\n", sl_btmesh_get_lightness_current());
           break;
         case MESH_GENERIC_ON_OFF_SERVER_MODEL_ID:
           struct mesh_generic_request onoff_req;
@@ -116,15 +117,13 @@ void sl_btmesh_on_event(sl_btmesh_msg_t *evt)
                             evt->data.evt_generic_server_client_request.transition_ms,
                             evt->data.evt_generic_server_client_request.delay_ms,
                             evt->data.evt_generic_server_client_request.flags);
+          printf("Lightness: %u\n", sl_btmesh_get_lightness_current());
           printf("Model: Generic ON/OFF\n");
           break;
       }
       break;
     case sl_btmesh_evt_node_provisioned_id:
       printf("Node Provisioned\n");
-      break;
-    case sl_btmesh_evt_generic_server_state_changed_id:
-      printf("Lightness: %u\n", sl_btmesh_get_lightness_current());
       break;
     default:
       break;

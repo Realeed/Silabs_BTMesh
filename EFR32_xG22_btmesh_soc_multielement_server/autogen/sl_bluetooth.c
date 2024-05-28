@@ -41,7 +41,6 @@ void sl_bt_process_event(sl_bt_msg_t *evt)
 {
   sl_bt_provisionee_on_event(evt);
   sl_btmesh_bgapi_listener(evt);
-  sl_bt_on_event(evt);
 }
 
 #if !defined(SL_CATALOG_KERNEL_PRESENT)

@@ -54,8 +54,8 @@ void sl_btmesh_generic_base_on_event(sl_btmesh_msg_t *evt)
   switch (SL_BT_MSG_ID(evt->header)) {
     case sl_btmesh_evt_node_provisioned_id:
     case sl_btmesh_evt_node_initialized_id:
-      sl_btmesh_generic_server_init_lightness();
-      sl_btmesh_generic_server_init_common();
+//      sl_btmesh_generic_server_init_lightness();
+//      sl_btmesh_generic_server_init_common();
       break;
   }
 }

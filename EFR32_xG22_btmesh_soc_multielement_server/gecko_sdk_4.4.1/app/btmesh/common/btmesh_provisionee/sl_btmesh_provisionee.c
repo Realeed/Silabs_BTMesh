@@ -62,6 +62,8 @@ void sl_bt_provisionee_on_event(sl_bt_msg_t* evt)
   switch (SL_BT_MSG_ID(evt->header)) {
     case sl_bt_evt_system_boot_id:
       sl_btmesh_node_init();
+      sl_btmesh_generic_server_init_lightness();
+      sl_btmesh_generic_server_init_common();
       break;
 
     default:

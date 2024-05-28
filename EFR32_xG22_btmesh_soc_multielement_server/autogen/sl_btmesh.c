@@ -34,7 +34,6 @@ SL_WEAK void sl_btmesh_on_event(sl_btmesh_msg_t* evt)
 
 void sl_btmesh_process_event(sl_btmesh_msg_t *evt)
 {
-  sl_btmesh_generic_base_on_event(evt);
   sl_btmesh_provisionee_on_event(evt);
   sl_btmesh_on_event(evt);
 }
