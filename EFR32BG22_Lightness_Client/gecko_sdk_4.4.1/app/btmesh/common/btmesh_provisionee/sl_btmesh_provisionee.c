@@ -28,6 +28,7 @@
  *
  ******************************************************************************/
 
+#include <stdio.h>
 #include "sl_status.h"
 #include "sl_common.h"
 
@@ -37,6 +38,10 @@
 #include <string.h>
 #include "app_assert.h"
 #include "app_timer.h"
+#include "sl_btmesh_lighting_client_config.h"
+#include "sl_bt_api.h"
+
+#include "sl_udelay.h"
 
 #ifdef SL_COMPONENT_CATALOG_PRESENT
 #include "sl_component_catalog.h"
@@ -53,9 +58,6 @@
 #include "sl_btmesh_provisionee.h"
 #include "sl_btmesh_provisionee_config.h"
 
-// Warning! The app_btmesh_util shall be included after the component configuration
-// header file in order to provide the component specific logging macro.
-#include "app_btmesh_util.h"
 
 /***************************************************************************//**
  * @addtogroup provisionee
@@ -69,10 +71,6 @@
 
 static size_t auth_val_size = AUTH_VAL_SIZE_MAX;
 
-// Timer callback
-#if SL_BTMESH_PROVISIONEE_AUTO_RESET
-static app_timer_t sl_btmesh_system_reset_timer;
-#endif
 
 // -----------------------------------------------------------------------------
 //                          Static Function Declarations
@@ -103,34 +101,15 @@ SL_UNUSED static void on_output_oob_data(uint8_t output_action, uint8array* data
  ******************************************************************************/
 SL_UNUSED static uint32_t oob_data_to_num(uint8array *data);
 
-/***************************************************************************//**
- * Timer callback for system reset after node reset event occured
- *
- * @param[in] handle timer handler
- * @param[in] data pointer to callback parameter
- ******************************************************************************/
-static void on_system_reset_timer(app_timer_t *handle, void *data);
-
 void sl_bt_provisionee_on_event(sl_bt_msg_t* evt)
 {
-  sl_status_t sc;
   switch (SL_BT_MSG_ID(evt->header)) {
     case sl_bt_evt_system_boot_id:
-    #if SL_BTMESH_PROVISIONEE_OOB_ENABLE_CFG_VAL
-      sc = sl_btmesh_node_init_oob(SL_BTMESH_PROVISIONEE_OOB_PUBLIC_KEY_ENABLE,
-                                   SL_BTMESH_PROVISIONEE_AUTH_METHODS,
-                                   SL_BTMESH_PROVISIONEE_AUTH_OUTPUT_OOB_ACTIONS,
-                                   SL_BTMESH_PROVISIONEE_AUTH_OUTPUT_OOB_SIZE,
-                                   SL_BTMESH_PROVISIONEE_AUTH_INPUT_OOB_ACTIONS,
-                                   SL_BTMESH_PROVISIONEE_AUTH_INPUT_OOB_SIZE,
-                                   SL_BTMESH_PROVISIONEE_OOB_INFO);
-    #else
-      sc = sl_btmesh_node_init();
-    #endif
-      log_status_error_f(sc, "Initialization failed" NL);
-      sl_btmesh_provisionee_on_init(sc);
+      sl_btmesh_node_init();
+      sl_btmesh_generic_client_init_on_off();
+      sl_btmesh_generic_client_init_lightness();
+      sl_btmesh_generic_client_init_common();
       break;
-
     default:
       break;
   }
@@ -138,63 +117,17 @@ void sl_bt_provisionee_on_event(sl_bt_msg_t* evt)
 
 void sl_btmesh_provisionee_on_event(sl_btmesh_msg_t* evt)
 {
-  sl_status_t sc;
   switch (SL_BT_MSG_ID(evt->header)) {
     case sl_btmesh_evt_node_initialized_id:
       if (!(evt->data.evt_node_initialized.provisioned)) {
-        sl_status_t sc;
-      #if SL_BTMESH_PROVISIONEE_INIT_PROV_RECORDS_CFG_VAL
-        sc = sl_btmesh_node_init_provisioning_records();
-        app_assert_status_f(sc, "Failed to init provisioning records");
-      #endif
-      #if SL_BTMESH_PROVISIONEE_AUTO_UNPROV_BEACONING_CFG_VAL
-        sc = sl_btmesh_node_start_unprov_beaconing(SL_BTMESH_PROVISIONEE_AUTO_UNPROV_BEACONING_CFG_VAL);
-        app_assert_status_f(sc, "Failed to start unprovisioned beaconing");
-      #endif
+        sl_btmesh_node_start_unprov_beaconing(SL_BTMESH_PROVISIONEE_AUTO_UNPROV_BEACONING_CFG_VAL);
       }
       break;
-
-  #if (SL_BTMESH_PROVISIONEE_AUTH_INPUT_OOB || SL_BTMESH_PROVISIONEE_AUTH_STATIC_OOB)
-    case sl_btmesh_evt_node_start_received_id:
-      auth_val_size = evt->data.evt_node_start_received.algorithm == 0 ? 16 : 32;
-      break;
-  #endif
-
-  #if SL_BTMESH_PROVISIONEE_AUTH_OUTPUT_OOB
-    case sl_btmesh_evt_node_display_output_oob_id:
-      on_output_oob_data(evt->data.evt_node_display_output_oob.output_action,
-                         &(evt->data.evt_node_display_output_oob.data));
-      break;
-  #endif
-
-  #if SL_BTMESH_PROVISIONEE_AUTH_INPUT_OOB
-    case sl_btmesh_evt_node_input_oob_request_id:
-      on_input_oob_request(evt->data.evt_node_input_oob_request.input_action,
-                           evt->data.evt_node_input_oob_request.input_size);
-      break;
-  #endif
-
-  #if SL_BTMESH_PROVISIONEE_AUTH_STATIC_OOB
-    case sl_btmesh_evt_node_static_oob_request_id:
-      sl_btmesh_on_static_oob_request(auth_val_size);
-      break;
-  #endif
-
-#if SL_BTMESH_PROVISIONEE_AUTO_RESET
     case sl_btmesh_evt_node_reset_id:
-  #ifdef SL_CATALOG_BTMESH_FACTORY_RESET_PRESENT
-      // Application callback on node reset
-      sl_btmesh_factory_reset_on_node_reset();
-  #endif // SL_CATALOG_BTMESH_FACTORY_RESET_PRESENT
-      // Reboot after a delay
-      sc = app_timer_start(&sl_btmesh_system_reset_timer,
-                           SL_BTMESH_PROVISIONEE_AUTO_RESET_DELAY,
-                           on_system_reset_timer,
-                           NULL,
-                           false);
-      app_assert_status_f(sc, "Failed to start system reset timer after node reset event");
+      printf("Node reset\n");
+      sl_bt_system_reset(0);
       break;
-#endif
+      break;
     default:
       break;
   }
@@ -300,17 +233,6 @@ static void on_output_oob_data(uint8_t output_action, uint8array* data)
     default:
       break;
   }
-}
-
-/***************************************************************************//**
- * Timer Callback
- ******************************************************************************/
-static void on_system_reset_timer(app_timer_t *handle, void *data)
-{
-  (void)data;
-  (void)handle;
-  // Reboot
-  sl_bt_system_reset(0);
 }
 
 SL_WEAK void sl_btmesh_provisionee_on_init(sl_status_t result)

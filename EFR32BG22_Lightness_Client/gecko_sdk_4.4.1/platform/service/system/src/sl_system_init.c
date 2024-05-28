@@ -31,9 +31,6 @@
 
 void sl_system_init(void)
 {
-  sl_platform_init();
-  sl_driver_init();
-  sl_service_init();
+
   sl_stack_init();
-  sl_internal_app_init();
 }

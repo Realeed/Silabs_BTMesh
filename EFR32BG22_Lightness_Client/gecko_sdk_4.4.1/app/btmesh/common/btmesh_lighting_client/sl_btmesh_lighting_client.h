@@ -58,14 +58,6 @@ void sl_btmesh_set_lightness(uint8_t new_lightness_percentage, uint8_t elementIn
  ******************************************************************************/
 void sl_btmesh_change_switch_position(uint8_t position);
 
-/***************************************************************************//**
- * Get lightness.
- *
- * This function returns actual lightness to set.
- *
- ******************************************************************************/
-uint16_t sl_btmesh_get_lightness(void);
-
 void setGenericOnOff();
 bool getOnOffRequestCnt();
 void setLightness();

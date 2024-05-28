@@ -32,11 +32,6 @@
 
 void sl_system_process_action(void)
 {
-  if (getOnOffRequestCnt()) {
-      setGenericOnOff();
-  }
-  if (getLightnessRequestCnt()) {
-      setLightness();
-  }
+
   sl_stack_process_action();
 }

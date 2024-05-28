@@ -20,10 +20,10 @@ gecko_sdk_4.4.1/app/btmesh/common/btmesh_provisionee/sl_btmesh_provisionee.o: \
  C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\platform\common\inc/sl_slist.h \
  C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\platform\common\inc/sl_enum.h \
  C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\platform\emlib\inc/em_core_generic.h \
+ C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\config/sl_btmesh_lighting_client_config.h \
+ C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\platform\service\udelay\inc/sl_udelay.h \
  ../gecko_sdk_4.4.1/app/btmesh/common/btmesh_provisionee/sl_btmesh_provisionee.h \
- C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\config/sl_btmesh_provisionee_config.h \
- C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\app\btmesh\common\app_btmesh_util/app_btmesh_util.h \
- C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\config/app_btmesh_util_config.h
+ C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\config/sl_btmesh_provisionee_config.h
 C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\platform\common\toolchain\inc/sl_gcc_preinclude.h:
 C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\platform\common\inc/sl_status.h:
 C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\platform\common\inc/sl_common.h:
@@ -44,7 +44,7 @@ C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\config/sl_powe
 C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\platform\common\inc/sl_slist.h:
 C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\platform\common\inc/sl_enum.h:
 C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\platform\emlib\inc/em_core_generic.h:
+C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\config/sl_btmesh_lighting_client_config.h:
+C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\platform\service\udelay\inc/sl_udelay.h:
 ../gecko_sdk_4.4.1/app/btmesh/common/btmesh_provisionee/sl_btmesh_provisionee.h:
 C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\config/sl_btmesh_provisionee_config.h:
-C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\app\btmesh\common\app_btmesh_util/app_btmesh_util.h:
-C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\config/app_btmesh_util_config.h:

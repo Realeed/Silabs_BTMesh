@@ -49,21 +49,9 @@
 #include "sl_component_catalog.h"
 #endif // SL_COMPONENT_CATALOG_PRESENT
 
-#ifdef SL_CATALOG_APP_LOG_PRESENT
-#include "app_log.h"
-#endif // SL_CATALOG_APP_LOG_PRESENT
-
 #include "sl_btmesh_lighting_client_config.h"
 #include "sl_btmesh_lighting_client.h"
 
-// Warning! The app_btmesh_util shall be included after the component configuration
-// header file in order to provide the component specific logging macro.
-#include "app_btmesh_util.h"
-
-/***************************************************************************//**
- * @addtogroup Lighting
- * @{
- ******************************************************************************/
 
 /// Parameter ignored for publishing
 #define IGNORED                        0
@@ -101,22 +89,8 @@ uint8_t onOffRequestCnt = 0;
 
 uint8_t elemIndex = 0;
 
-uint8_t lightbuf[2] = {0};
+//uint8_t lightbuf[2] = {0};
 
-/***************************************************************************//**
- * This function publishes one generic on/off request to change the state
- * of light(s) in the group. Global variable switch_pos holds the latest
- * desired light state, possible values are:
- * switch_pos = 1 -> PB1 was pressed long (above 1s), turn lights on
- * switch_pos = 0 -> PB0 was pressed long (above 1s), turn lights off
- *
- * @param[in] retrans Indicates if this is the first request or a retransmission,
- *                    possible values are 0 = first request, 1 = retransmission.
- *
- * @note This application sends multiple generic on/off requests for each
- *       long button press to improve reliability.
- *       The transaction ID is not incremented in case of a retransmission.
- ******************************************************************************/
 static void send_onoff_request(uint8_t retrans)
 {
   struct mesh_generic_request req;
@@ -138,37 +112,22 @@ static void send_onoff_request(uint8_t retrans)
   }
 }
 
-/***************************************************************************//**
- * This function publishes one light lightness request to change the lightness
- * level of light(s) in the group. Global variable lightness_level holds
- * the latest desired light level.
- *
- * @param[in] retrans Indicates if this is the first request or a retransmission,
- *                    possible values are 0 = first request, 1 = retransmission.
- *
- * @note This application sends multiple lightness requests for each
- *       short button press to improve reliability.
- *       The transaction ID is not incremented in case of a retransmission.
- ******************************************************************************/
 static void send_lightness_request(uint8_t retrans)
 {
-  if (retrans == 0) {
-    lightness_trid++;
-  }
-  lightbuf[0] = lightness_level & 0xFF;
-  lightbuf[1] = (lightness_level >> 8) & 0xFF;
-  sl_btmesh_generic_client_publish(elemIndex,
-                                   MESH_LIGHTING_LIGHTNESS_CLIENT_MODEL_ID,
-                                            lightness_trid,
-                                            0,
-                                            0,
-                                            0,
-                                            mesh_lighting_request_lightness_actual,
-                                            2,
-                                            lightbuf);
-  if (lightnessRequestCnt > 0) {
-      lightnessRequestCnt--;
-  }
+//  lightbuf[0] = lightness_level & 0xFF;
+//  lightbuf[1] = (lightness_level >> 8) & 0xFF;
+//  sl_btmesh_generic_client_publish(elemIndex,
+//                                   MESH_LIGHTING_LIGHTNESS_CLIENT_MODEL_ID,
+//                                            0,
+//                                            0,
+//                                            0,
+//                                            0,
+//                                            mesh_lighting_request_lightness_actual,
+//                                            2,
+//                                            lightbuf);
+//  if (lightnessRequestCnt > 0) {
+//      lightnessRequestCnt--;
+//  }
 }
 
 void setGenericOnOff()
@@ -200,27 +159,12 @@ bool getLightnessRequestCnt()
  ******************************************************************************/
 void sl_btmesh_set_lightness(uint8_t lightness_percent, uint8_t elementInd)
 {
-  elemIndex = elementInd;
-  if (lightness_percent > LIGHTNESS_PCT_MAX) {
-    return;
-  }
-  lightness_level = lightness_percent * LIGHTNESS_VALUE_MAX / LIGHTNESS_PCT_MAX;
-  if (lightness_level != 0) {
-    lightness_level_switch_on = lightness_level;
-  }
-  lightnessRequestCnt = 2;
-  send_lightness_request(0);
+//  elemIndex = elementInd;
+//  lightness_level = lightness_percent * LIGHTNESS_VALUE_MAX / LIGHTNESS_PCT_MAX;
+//  lightnessRequestCnt = 2;
+//  send_lightness_request(0);
 }
 
-/*******************************************************************************
- * This function change the switch position and send it to the server.
- *
- * @param[in] position Defines switch position change, possible values are:
- *                       - SL_BTMESH_LIGHTING_CLIENT_OFF
- *                       - SL_BTMESH_LIGHTING_CLIENT_ON
- *                       - SL_BTMESH_LIGHTING_CLIENT_TOGGLE
- *
- ******************************************************************************/
 void sl_btmesh_change_switch_position(uint8_t position)
 {
   if (position != SL_BTMESH_LIGHTING_CLIENT_TOGGLE) {
@@ -236,10 +180,3 @@ void sl_btmesh_change_switch_position(uint8_t position)
   onOffRequestCnt = OPTIMAL_RETRANSMISSION_CNT;
   send_onoff_request(0);
 }
-
-uint16_t sl_btmesh_get_lightness(void)
-{
-  return lightness_level;
-}
-/** @} (end addtogroup btmesh_light_clnt_tim_cb) */
-/** @} (end addtogroup Lighting) */

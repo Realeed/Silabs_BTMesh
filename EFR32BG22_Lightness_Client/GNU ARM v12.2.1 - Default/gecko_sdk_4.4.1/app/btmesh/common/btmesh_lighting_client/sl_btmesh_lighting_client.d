@@ -72,9 +72,7 @@ gecko_sdk_4.4.1/app/btmesh/common/btmesh_lighting_client/sl_btmesh_lighting_clie
  C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\platform\common\inc/sl_enum.h \
  C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\platform\emlib\inc/em_core_generic.h \
  C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\config/sl_btmesh_lighting_client_config.h \
- ../gecko_sdk_4.4.1/app/btmesh/common/btmesh_lighting_client/sl_btmesh_lighting_client.h \
- C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\app\btmesh\common\app_btmesh_util/app_btmesh_util.h \
- C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\config/app_btmesh_util_config.h
+ ../gecko_sdk_4.4.1/app/btmesh/common/btmesh_lighting_client/sl_btmesh_lighting_client.h
 C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\platform\common\toolchain\inc/sl_gcc_preinclude.h:
 C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\platform\emlib\inc/em_common.h:
 C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\platform\Device\SiliconLabs\EFR32BG22\Include/em_device.h:
@@ -148,5 +146,3 @@ C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.
 C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\platform\emlib\inc/em_core_generic.h:
 C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\config/sl_btmesh_lighting_client_config.h:
 ../gecko_sdk_4.4.1/app/btmesh/common/btmesh_lighting_client/sl_btmesh_lighting_client.h:
-C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\gecko_sdk_4.4.1\app\btmesh\common\app_btmesh_util/app_btmesh_util.h:
-C:\Users\hsarg\SimplicityStudio\BTMesh\EFR32BG22_Lightness_Client\config/app_btmesh_util_config.h:

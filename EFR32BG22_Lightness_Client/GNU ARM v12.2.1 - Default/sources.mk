@@ -16,10 +16,8 @@ C_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-. \
 autogen \
 gecko_sdk_4.4.1/app/btmesh/common/app_btmesh_util \
-gecko_sdk_4.4.1/app/btmesh/common/btmesh_generic_base \
 gecko_sdk_4.4.1/app/btmesh/common/btmesh_lighting_client \
 gecko_sdk_4.4.1/app/btmesh/common/btmesh_provisionee \
 gecko_sdk_4.4.1/app/common/util/app_timer \
@@ -53,4 +51,5 @@ gecko_sdk_4.4.1/platform/service/udelay/src \
 gecko_sdk_4.4.1/protocol/bluetooth/src \
 gecko_sdk_4.4.1/util/silicon_labs/silabs_core/memory_manager \
 gecko_sdk_4.4.1/util/third_party/mbedtls/library \
+. \
 
