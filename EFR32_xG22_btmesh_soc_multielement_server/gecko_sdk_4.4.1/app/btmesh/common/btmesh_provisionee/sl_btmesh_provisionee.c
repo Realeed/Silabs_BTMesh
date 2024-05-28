@@ -82,7 +82,6 @@ void sl_btmesh_provisionee_on_event(sl_btmesh_msg_t* evt)
     case sl_btmesh_evt_node_reset_id:
       sl_bt_nvm_erase(SL_BTMESH_LIGHTING_SERVER_PS_KEY_CFG_VAL);
       printf("Node reset\n");
-      sl_udelay_wait(100000);
       sl_bt_system_reset(0);
       break;
     default:

@@ -65,8 +65,9 @@ int main(void)
   sl_platform_init();
   sl_driver_init();
   sl_service_init();
-
   sl_rail_util_pa_init();
+  NVIC_ClearPendingIRQ(PendSV_IRQn);
+  NVIC_EnableIRQ(PendSV_IRQn);
   sl_bt_stack_init();
   sli_bt_system_start_bluetooth();
   sl_btmesh_init_classes(btmesh_class_table);

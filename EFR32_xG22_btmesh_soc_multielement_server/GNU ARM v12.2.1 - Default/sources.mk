@@ -18,7 +18,6 @@ C_DEPS :=
 SUBDIRS := \
 autogen \
 gecko_sdk_4.4.1/app/btmesh/common/app_btmesh_util \
-gecko_sdk_4.4.1/app/btmesh/common/btmesh_generic_base \
 gecko_sdk_4.4.1/app/btmesh/common/btmesh_lighting_server \
 gecko_sdk_4.4.1/app/btmesh/common/btmesh_provisionee \
 gecko_sdk_4.4.1/app/common/util/app_timer \
