@@ -99,6 +99,11 @@ int main(void)
 void sl_btmesh_on_event(sl_btmesh_msg_t *evt)
 {
   switch (SL_BT_MSG_ID(evt->header)) {
+    case sl_btmesh_evt_node_initialized_id:
+      if (evt->data.evt_node_initialized.provisioned) {
+          provisioned = true;
+      }
+      break;
     case sl_btmesh_evt_node_provisioned_id:
       provisioned = true;
       break;
